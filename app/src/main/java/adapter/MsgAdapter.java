@@ -20,12 +20,11 @@ import bean.Msg;
 public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.ViewHolder> {
     private List<Msg> mMsgList;
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
+    static class ViewHolder extends RecyclerView.ViewHolder {
         LinearLayout leftLayout;
         LinearLayout rightLayout;
         TextView leftMsg;
         TextView rightMsg;
-
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -44,7 +43,7 @@ public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.msg_item_layout,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.msg_item_layout, parent, false);
 
         return new ViewHolder(view);
     }
@@ -52,12 +51,12 @@ public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Msg msg = mMsgList.get(position);
-        if (msg.getType() == Msg.TYPE_RECEIVED){
+        if (msg.getType() == Msg.TYPE_RECEIVED) {
             //如果是收到的消息，则显示左边的消息布局，将右边的消息布局隐藏
             holder.leftLayout.setVisibility(View.VISIBLE);
             holder.rightLayout.setVisibility(View.GONE);
             holder.leftMsg.setText(msg.getContent());
-        }else if (msg.getType() == Msg.TYPE_SENT){
+        } else if (msg.getType() == Msg.TYPE_SENT) {
             //如果是发出的消息，则显示右边的消息布局，将左边的消息布局隐藏
             holder.rightLayout.setVisibility(View.VISIBLE);
             holder.leftLayout.setVisibility(View.GONE);
