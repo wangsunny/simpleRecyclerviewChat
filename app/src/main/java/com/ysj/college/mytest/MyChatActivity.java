@@ -1,9 +1,11 @@
 package com.ysj.college.mytest;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,13 +15,17 @@ import java.util.List;
 
 import adapter.MsgAdapter;
 import bean.Msg;
+import util.NetUtils;
 
 /**
  * Created by wang on 2018/1/10.
  * 使用RecyclerView完成聊天界面
+ *
+ * 远程地址：https://github.com/wangsunny/simpleRecyclerviewChat.git
+ *
  */
 
-public class MyChatActivity extends AppCompatActivity {
+public class MyChatActivity extends BaseActivity {
     private List<Msg> msgList = new ArrayList<>();
     private EditText inputText;
     private Button send;
@@ -60,6 +66,23 @@ public class MyChatActivity extends AppCompatActivity {
                 }
             }
         });
+        //通过浏览器跳转到app
+        Intent i_getvalue = getIntent();
+        String action = i_getvalue.getAction();
+        if(Intent.ACTION_VIEW.equals(action)){
+            Uri uri = i_getvalue.getData();
+            if(uri != null){
+                String name = uri.getQueryParameter("name");
+                String age = uri.getQueryParameter("age");
+            }
+        }
+    }
+
+    @Override
+    public void reConnect() {
+        super.reConnect();
+        //重新发起网络请求
+        Log.i("tag","------MyChatActivity/NetUtils.isConnected(mContext)="+ NetUtils.isConnected(mContext));
     }
 
     private void initMsgs() {
